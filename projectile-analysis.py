@@ -83,13 +83,13 @@ plt.errorbar(
     yerr=A_error,      # Uncertainty in Y
     fmt='ko',          # 'ko' = black circles
     capsize=5,         # Adds caps on the error bars
-    label='Experimental Data'
+    label='Simulated Data (Model 2 + Noise)'
 )
 
 # Plot model lines
 plt.plot(x_theoretical, y_model1, 'b--', label='Model 1 (Point Mass)')     # 'b--' = blue dashed
 plt.plot(x_theoretical, y_model2, 'r-', label='Model 2 (Rigid Body)')      # 'r-' = red solid
-plt.plot(x_theoretical, y_best_fit, 'g:', label='Linear Fit (Experimental)')  # 'g:' = green dotted
+plt.plot(x_theoretical, y_best_fit, 'g:', label='Linear Fit (Simulated)')  # 'g:' = green dotted
 
 # Graph settings (labels, legends, titles)
 # Using LaTeX ($) for nice labels
