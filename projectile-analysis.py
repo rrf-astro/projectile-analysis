@@ -1,8 +1,8 @@
-#python
 # -*- coding: utf-8 -*-
 
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.stats import linregress  # Importe a biblioteca
 
 # --- 1. INITIAL SETTINGS AND CONSTANTS ---
 # Style
@@ -48,8 +48,17 @@ x_exp = np.sqrt(h_exp)  # Our X-axis will be sqrt(h)
 y_exp = A_exp           # Our Y-axis will be A
 
 # 3.1. Linear Fit (Linear Regression) of the data
-# np.polyfit(x, y, 1) returns [slope, intercept]
-slope_exp, intercept_exp = np.polyfit(x_exp, y_exp, 1)
+
+
+# Usamos scipy.stats.linregress para uma análise completa
+regression_result = linregress(x_exp, y_exp)
+
+# Armazene os valores principais
+slope_exp = regression_result.slope
+intercept_exp = regression_result.intercept
+slope_uncertainty = regression_result.stderr  # <-- ESTE É O NÚMERO QUE FALTA!
+intercept_uncertainty = regression_result.intercept_stderr
+
 
 # 3.2. THEORETICAL SLOPES
 # Model 1 (Point Mass): A = (2*sqrt(h0)) * sqrt(h)
@@ -116,8 +125,14 @@ print(f"Model 1 (Point Mass): {slope_model1:.4f}")
 print(f"Model 2 (Rigid Body): {slope_model2:.4f}")
 print("-" * 30)
 print("EXPERIMENTAL RESULTS")
-print(f"Linear Fit Slope: {slope_exp:.4f}")
-print(f"Linear Fit Intercept: {intercept_exp:.4f}")
+#print(f"Linear Fit Slope: {slope_exp:.4f}")
+#print(f"Linear Fit Intercept: {intercept_exp:.4f}")
+
+# Imprima a inclinação COM sua incerteza:
+print(f"Linear Fit Slope: {slope_exp:.4f} ± {slope_uncertainty:.4f}")
+# Imprima o intercepto COM sua incerteza:
+print(f"Linear Fit Intercept: {intercept_exp:.4f} ± {intercept_uncertainty:.4f}")
+
 print("-" * 30)
 
 # Comparison
@@ -133,7 +148,3 @@ if error_model2 < error_model1:
     print("Conclusion: Model 2 (Rigid Body) is more accurate.")
 else:
     print("Conclusion: Model 1 (Point Mass) is more accurate.")
-
-
-#Quer que eu gere o arquivo `.py` já traduzido para download também?
-
